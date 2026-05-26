@@ -1,4 +1,4 @@
-package org.example.authspringbootsecuritymysql.model;
+package org.example.authspringbootsecurity.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

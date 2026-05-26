@@ -1,4 +1,4 @@
-package org.example.authspringbootsecuritymysql.model;
+package org.example.authspringbootsecurity.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -36,4 +36,14 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
+
+    public void addProduct(Product product) {
+        product.setCategory(this);
+        products.add(product);
+    }
+
+    public void removeProduct(Product product) {
+        product.setCategory(null);
+        products.remove(product);
+    }
 }
