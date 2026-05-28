@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class CreateProductRequest {
-    @NotBlank(message = "Category name is required")
+    @NotBlank(message = "Product name is required")
     @Size(min = 2, max = 100, message = "Product name should be between 2-100 characters")
     private String name;
 
