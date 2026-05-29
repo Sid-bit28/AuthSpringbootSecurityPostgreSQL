@@ -21,7 +21,7 @@ public class CategoryResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    private static CategoryResponse fromEntity(Category category) {
+    public static CategoryResponse fromEntity(Category category) {
         return CategoryResponse.builder()
                 .id(category.getId())
                 .name(category.getName())

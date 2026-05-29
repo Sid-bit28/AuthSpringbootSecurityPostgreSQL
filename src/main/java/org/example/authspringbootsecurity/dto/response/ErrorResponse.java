@@ -1,4 +1,4 @@
-package org.example.authspringbootsecurity.dto.request;
+package org.example.authspringbootsecurity.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package org.example.authspringbootsecurity.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.authspringbootsecurity.dto.request.ErrorResponse;
+import org.example.authspringbootsecurity.dto.response.ErrorResponse;
 import org.example.authspringbootsecurity.exception.DuplicateResourceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
