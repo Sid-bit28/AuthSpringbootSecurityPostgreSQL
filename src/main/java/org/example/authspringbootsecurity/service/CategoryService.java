@@ -102,19 +102,36 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public Page<CategoryResponse> listCategories(Pageable pageable) {
+        log.info("Fetching all categories");
         Page<Category> categories = categoryRepository.findAll(pageable);
         return categories.map(CategoryResponse::fromEntity);
     }
 
     @Transactional(readOnly = true)
     public Page<CategoryResponse> listActiveCategories(Pageable pageable) {
+        log.info("Listing all active categories");
         Page<Category> categories = categoryRepository.findByActiveTrue(pageable);
         return categories.map(CategoryResponse::fromEntity);
     }
 
     @Transactional(readOnly = true)
     public Page<CategoryResponse> searchCategories(String query, Pageable pageable) {
+        log.info("Category search query : {}", query);
         Page<Category> categories = categoryRepository.findByDescriptionContainingIgnoreCase(query, pageable);
         return categories.map(CategoryResponse::fromEntity);
+    }
+
+    // Helper Functions
+    @Transactional(readOnly = true)
+    public Boolean categoryExists(Long id) {
+        return categoryRepository.findById(id).isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    public Category getCategoryEntity(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Category with id " + id + " not found"
+                ));
     }
 }

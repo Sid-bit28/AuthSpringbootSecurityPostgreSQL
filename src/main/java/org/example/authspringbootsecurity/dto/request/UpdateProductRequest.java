@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class UpdateProductRequest {
-    @Size(min = 3, max = 10, message = "Product name should be betwen 3-10 characters")
+    @Size(min = 3, max = 10, message = "Product name should be between 3-10 characters")
     private String name;
 
     @Size(max = 500, message = "Product description should not exceed 500 characters")
