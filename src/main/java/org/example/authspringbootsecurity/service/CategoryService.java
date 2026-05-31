@@ -47,7 +47,7 @@ public class CategoryService {
     public CategoryResponse getCategoryById(Long id) {
         log.info("Get category with id : {}", id);
 
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category with id " + id));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No category found with id " + id));
         return CategoryResponse.fromEntity(category);
     }
 
@@ -55,7 +55,7 @@ public class CategoryService {
     public CategoryResponse updateCategory(Long id, UpdateCategoryRequest request) {
         log.info("Update category with name : {}", request.getName());
 
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category with id " + id));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No category found with id " + id));
 
         if(categoryRepository.findByName(request.getName()).isPresent()) {
             log.error("Category with name {} already exists", request.getName());

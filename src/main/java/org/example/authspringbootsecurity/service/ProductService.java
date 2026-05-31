@@ -44,6 +44,7 @@ public class ProductService {
         }else product.setActive(true);
 
         product.setCategory(category);
+        log.debug("Product: {}", product);
 
         Product savedProduct = productRepository.save(product);
 

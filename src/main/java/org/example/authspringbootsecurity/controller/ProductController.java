@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 @Validated
 @Slf4j
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody CreateProductRequest request) {
@@ -39,18 +39,11 @@ public class ProductController {
     public ResponseEntity<Page<ProductResponse>> getAllProducts(
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) int size,
-            @RequestParam(required = false) String query
+            @RequestParam(required = false) String name
     ) {
-        log.info("Retrieving all products with page: {}, size: {}", page, size);
-        Sort sortOrder = Sort.unsorted();
-        if(query != null && !query.trim().isEmpty()) {
-            String[] sortParts = query.split(",");
-            String field = sortParts[0];
-            Sort.Direction direction = sortParts.length > 1 && sortParts[1].equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-            sortOrder = Sort.by(direction, field);
-        }
-        Pageable pageable = PageRequest.of(page, size, sortOrder);
-        Page<ProductResponse> responses = productService.getAllProducts(pageable);
+        log.info("Retrieving all products with name containing: {}", name);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("created_at").descending());
+        Page<ProductResponse> responses = productService.searchProductsByName(name, pageable);
         log.info("Fetched products with responses: {}", responses);
         return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
@@ -68,11 +61,11 @@ public class ProductController {
             @PathVariable Long categoryId,
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) int size,
-            @RequestParam(required = false) String query) {
+            @RequestParam(required = false) String sort) {
         log.info("Fetching all products with categoryId: {}", categoryId);
         Sort sortOrder = Sort.unsorted();
-        if(query != null && !query.trim().isEmpty()) {
-            String[] sortParts = query.split(",");
+        if(sort != null && !sort.trim().isEmpty()) {
+            String[] sortParts = sort.split(",");
             String field = sortParts[0];
             Sort.Direction direction = sortParts.length > 1 && sortParts[1].equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
             sortOrder = Sort.by(direction, field);
