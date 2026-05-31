@@ -60,7 +60,7 @@ public class ProductController {
     public ResponseEntity<ProductResponse> getProduct(@PathVariable Long id) {
         log.info("Retrieving product with id: {}", id);
         ProductResponse response = productService.getProduct(id);
-        log.info("Product retrieved successfully")
+        log.info("Product retrieved successfully");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
