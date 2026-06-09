@@ -42,7 +42,7 @@ public class ProductController {
             @RequestParam(required = false) String name
     ) {
         log.info("Retrieving all products with name containing: {}", name);
-        Pageable pageable = PageRequest.of(page, size, Sort.by("created_at").descending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<ProductResponse> responses = productService.searchProductsByName(name, pageable);
         log.info("Fetched products with responses: {}", responses);
         return ResponseEntity.status(HttpStatus.OK).body(responses);
